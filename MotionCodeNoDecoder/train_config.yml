@@ -1,0 +1,46 @@
+base_config:
+  basedir: "motion_sense_exp" #Directory where the results should be stored
+  batch_size: 32 #Batch size for training
+  data_dir: 'accelerometer_dataset/motion_sense/motion-sense-master/data/' #Directory from where the data should be read in
+  split_criteria: 'sub_id' #trial or sub_id
+  exp_name: reproduce_motion #Name of the experiment
+  gradient_clip: 10000.0 #Maximum global gradient norm for the gradient clipping during training
+  latent_dim: 3 #Dimensionality of the latent space
+  learning_rate: 0.001 #Learning rate for training
+  num_epochs: 1 #Number of training epochs
+  num_steps: 0 #Number of training steps: If non-zero it overwrites num_epochs
+  print_interval: 1 #Interval for printing the loss and saving the model during training
+  seed: 0 #Seed for the random number generator
+  time_len: 128 #Window size at which to consider time series
+  use_four_activities: true
+
+encoder_config:
+  encoder_sizes: #Layer sizes of the encoder
+    - 128
+    - 64
+    - 32
+    
+decoder_config:
+  decoder_sizes: #Layer sizes of the decoder, only need in AE training
+    - 64
+    - 32
+
+activity_predictor_config:
+  num_gru_layers: 0
+  gru_units: 32
+  dense_size:  
+    - 16
+  use_weighted_loss: true
+  weighted_loss_multiplier: 0.15
+
+gender_predictor_config:
+  num_gru_layers: 2
+  gru_units: 32
+  dense_size:
+    - 64
+    - 32
+    - 16
+  use_weighted_loss: true
+  weighted_loss_multiplier: 0.15
+
+train_for_male: true
